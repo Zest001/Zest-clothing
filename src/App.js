@@ -1,10 +1,10 @@
 import "./App.css";
 import React from "react";
-import HomePage from "./E-Commerce/HomePage";
+import HomePage from "./E-Commerce/page/homepage/HomePage";
 
 const App = () => {
   return (
-    <div>
+    <div className="body">
       <HomePage />
     </div>
   );
