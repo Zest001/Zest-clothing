@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import "../menu-item/menu-item.style.scss";
 import { withRouter } from "react-router-dom";
 
