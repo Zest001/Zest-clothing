@@ -4,24 +4,43 @@ import HomePage from "./E-Commerce/page/homepage/HomePage";
 import { Switch, Route } from "react-router-dom";
 import ShopPage from "./E-Commerce/page/Shop/Shop.component";
 import Header from "./E-Commerce/Header/Header.component";
+import Signinandsignup from "./E-Commerce/page/signin-and-signup-page/signin-and-signup-component";
+import { auth } from "./Firebase/Firebase-config";
 
-const Hatpage = () => (
-  <div>
-    <h1>THE HATS PAGE</h1>
-  </div>
-);
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: null,
+    };
+  }
 
-const App = () => {
-  return (
-    <div className="body">
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-      </Switch>
-    </div>
-  );
-};
+  unsubscribeFromAuth = null;
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      this.setState({ currentUser: user });
+      console.log(user);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+    return (
+      <div className="body">
+        <Header currentUser={this.state.currentUser} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route path="/signin" component={Signinandsignup} />
+        </Switch>
+      </div>
+    );
+  }
+}
 
 export default App;
 
